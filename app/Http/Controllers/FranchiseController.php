@@ -138,9 +138,9 @@ class FranchiseController extends Controller
 
     public function generateStudentId()
     {
-        $username = Session::get('username');
+        $username = auth()->user()->username;
         $year = now()->year;
-    
+    dd($username);
         // Get the last student_id
         $lastStudentId = Student::max('student_id');
     

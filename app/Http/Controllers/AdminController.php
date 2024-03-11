@@ -222,7 +222,7 @@ class AdminController extends Controller
     
     public function generateStudentId()
     {
-        $username = Session::get('username');
+        $username = auth()->user()->username;
         $year = now()->year;
     
         // Get the last student_id

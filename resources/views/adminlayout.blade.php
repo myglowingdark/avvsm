@@ -162,6 +162,7 @@
                                                 <div class="col-6">
                                                     <select id="duration_years" class="form-select" name="duration_years">
                                                         <option value="" selected disabled>Select Years</option>
+                                                        <option value="1">0 year</option>
                                                         <option value="1">1 year</option>
                                                         <option value="2">2 years</option>
                                                         <option value="3">3 years</option>

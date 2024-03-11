@@ -41,14 +41,14 @@
                           <th>State</th>
                           <th>District</th>
                           <th>Date of Admission</th>
-                          <!-- <th>Action</th> -->
+                          <th>Action</th>
                           <th>
                                 Select All
                                 <label>
                                 <input type="checkbox" id="selectAllCheckbox" onchange="toggleSelectAll()">    
                                 </label>
                             </th>
-                          <!-- <th>Action</th> -->
+                         
                         </tr>
                       </thead>
                       <tbody>
@@ -75,9 +75,11 @@
                       
                        <td>
                              <div style = "">
-                             <!-- <a class="mx-2"  href="javascript:void(0);"><i class="bx bx-show me-1"></i></a> -->
-                               <!-- <a class="mx-2" href="{{route('courses.edit',['id' => $s->id ])}}"><i class="bx bx-edit-alt me-1"></i></a> -->
-                               <!-- <a class="mx-2"   href="{{route('delete-student',['id' => $s->id ])}}"><i class="bx bx-trash me-1"></i></a> -->
+                             <a class="mx-2"  href="javascript:void(0);"><i class="bx bx-show me-1"></i></a>
+                               <!-- <a class="mx-2" href="{{route('courses.edit',['id' => $s->id ])}}"><i class="bx bx-edit-alt me-1"></i></a>
+                               <a class="mx-2"   href="{{route('delete-student',['id' => $s->id ])}}"><i class="bx bx-trash me-1"></i></a> -->
+                               <a class="mx-2" href=""><i class="bx bx-edit-alt me-1"></i></a>
+                               <a class="mx-2"   href=""><i class="bx bx-trash me-1"></i></a>
                              </div> 
                               </td>
                     <td><input type="checkbox" onchange="toggleButtons()"></td>

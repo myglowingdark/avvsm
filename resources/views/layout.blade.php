@@ -60,7 +60,7 @@
                           </div>
                         </div>
                       </div>
-                      {{--
+                
                       <div class="col-lg-3 col-md-3 col-6 mb-4 cardcol">
                         <div class="card">
                           <div class="card-body">
@@ -90,13 +90,13 @@
                               </div> -->
                             </div>
                             <span>Wallet Balance</span>
-                            <h3 class="card-title text-nowrap mb-1"></h3>
+                            <h3 class="card-title text-nowrap mb-1">₹ 0.00</h3>
   
                             <div class="col-lg-4 col-md-6">
                         <!-- <small class="text-light fw-semibold">Vertically centered</small> -->
                         <div class="mt-3">
                           <!-- Button trigger modal -->
-                          <button type="button" class="btn rounded-pill btn-outline-info"  data-bs-toggle="modal"
+                          <button disabled type="button" class="btn rounded-pill btn-outline-info"  data-bs-toggle="modal"
                             data-bs-target="#modalCenter">Deposit</button>
                           <!-- <button
                             type="button"
@@ -113,7 +113,7 @@
                           </div>
                         </div>
                       </div>
-                      --}}
+                  
                       <div class="col-lg-3 col-md-3 col-6 mb-4 cardcol">
                         <div class="card">
                           <div class="card-body">

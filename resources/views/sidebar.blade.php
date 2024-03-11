@@ -14,7 +14,7 @@
 
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
-            <li class="menu-item">
+            <li class="menu-item active">
             
               <a href="{{ route('dashboard')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
@@ -220,4 +220,17 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
   </script>
+
+<script >
+  $(window).on('load', function(){
+    var currentUrl = window.location.href;
+      $(".menu-item").removeClass("active");
+      $(".menu-link").each(function() {
+          if ($(this).attr("href") === currentUrl) {
+              $(this).closest(".menu-item").addClass("active").parent().parent().addClass("active open");
+          }
+      });
+  });
+
+    </script>
   

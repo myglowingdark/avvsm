@@ -27,7 +27,7 @@ class Authcontroller extends Controller
             ->where('register_status', 'U')
             ->get()->count();
             $rstudent =Student::where('center', $user)
-            ->where('register_status', 'U')
+            ->where('register_status', 'R')
             ->get()->count();
             $data=compact('student','ustudent','rstudent');
             return view('layout')->with($data);
