@@ -7,7 +7,7 @@ use App\Models\Franchise;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\EnquiryForm;
+use App\Models\enquiryForm;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\File;
@@ -27,7 +27,7 @@ class FranchiseController extends Controller
     public function showEnquiryList()
     {
         // Fetch all enquiry forms from the database
-        $enquiryForms = EnquiryForm::all();
+        $enquiryForms = enquiryForm::all();
         // dd($enquiryForms);
         
         // Pass the data to the view
@@ -282,7 +282,7 @@ class FranchiseController extends Controller
             'date_of_enquiry' => 'required|date',
         ]);
 
-        $enquiryForm = EnquiryForm::create([
+        $enquiryForm = enquiryForm::create([
             'center' => $validatedData['center'],
             'counselor_name' => $validatedData['counselor_name'],
             'candidate_name' => $validatedData['candidate_name'],
@@ -322,13 +322,13 @@ class FranchiseController extends Controller
 
      public function edit($id)
     {
-        $enquiryForm = EnquiryForm::findOrFail($id);
+        $enquiryForm = enquiryForm::findOrFail($id);
         return view('franchise.edit-enquiry-form', compact('enquiryForm'));
     }
 
     public function update(Request $request, $id)
     {
-        $enquiryForm = EnquiryForm::findOrFail($id);
+        $enquiryForm = enquiryForm::findOrFail($id);
 
         $validatedData = $request->validate([
             'center' => 'required',
@@ -394,6 +394,6 @@ class FranchiseController extends Controller
         $franchise->delete();
         
         // Redirect back with success message
-        return redirect()->route('student-enquiry-list')->with('success', 'Franchise deleted successfully');
+        return redirect()->back()->with('success', 'Franchise deleted successfully');
     }
 }

@@ -36,6 +36,12 @@ Route::get('/login',[Authcontroller::class, 'login'])->name('login');
 Route::post('/login',[Authcontroller::class, 'userlogin']);
 Route::get('logout',[Authcontroller::class, 'logout'])->name('logout');
 
+// change password
+// Route::middleware(['auth'])->group(function () {
+    Route::get('admin/password/change', [Authcontroller::class, 'showChangePasswordForm'])->name('password.change');
+    Route::post('admin/password/update', [Authcontroller::class, 'updatePassword'])->name('password.update');
+//  });
+
 
 
 Route::middleware(['auth'])->group(function () {
@@ -157,11 +163,13 @@ Route::get('/clear-config-cache', function() {
 
 Route::post('admin/courses/manage', 'CourseController@index')->name('courses.show'); 
 Route::post('admin/courses/create', [CourseController::class, 'createCourse'])->name('courses.create'); 
-Route::get('admin/courses/{id}/edit', [CourseController::class, 'edit'])->name('courses.edit'); 
-Route::post('admin/courses/{id}', [CourseController::class, 'updateCourse'])->name('courses.update'); 
-// Route::get('admin/courses/{id}/edit', 'CourseController@edit')->name('courses.edit');
-// Route::put('admin/courses/{id}', 'CourseController@updateCourse')->name('courses.update');
-// Route::delete('admin/courses/{id}', 'CourseController@destroyCourse')->name('courses.delete');
+Route::post('admin/courses/{id}/edit', [CourseController::class, 'edit'])->name('courses.edit');
+// routes/web.php
+
+// Route::put('/admin/courses/{id}', 'CourseController@update')->name('courses.update');
+
+Route::post('admin/courses/{id}', [CourseController::class, 'update'])->name('courses.update'); 
+Route::get('admin/courses/{id}', [CourseController::class, 'destroyCourse'])->name('courses.delete');
 
 Route::get('/admin/enroll-new-student', [AdminController::class, 'enrollNewStudent'])->name('add-new-student');
 Route::get('/admin/view-student-list',[AdminController::class, 'viewStudent'])->name('view-student');

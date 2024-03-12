@@ -31,7 +31,7 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="{{ route('create-student')}}" class="menu-link">
+                  <a href="{{ route('password.change')}}" class="menu-link">
                     <div data-i18n="Enroll New Student">Change Password</div>
                   </a>
                 </li>

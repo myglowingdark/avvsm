@@ -79,7 +79,7 @@
                                <!-- <a class="mx-2" href="{{route('courses.edit',['id' => $s->id ])}}"><i class="bx bx-edit-alt me-1"></i></a>
                                <a class="mx-2"   href="{{route('delete-student',['id' => $s->id ])}}"><i class="bx bx-trash me-1"></i></a> -->
                                <a class="mx-2" href=""><i class="bx bx-edit-alt me-1"></i></a>
-                               <a class="mx-2"   href=""><i class="bx bx-trash me-1"></i></a>
+                               <a class="mx-2"   href="{{route('delete-student',['id' => $s->student_id ])}}"><i class="bx bx-trash me-1"></i></a>
                              </div> 
                               </td>
                     <td><input type="checkbox" onchange="toggleButtons()"></td>
