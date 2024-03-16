@@ -14,6 +14,14 @@
         <div class="col">
             <h5 class="card-header">Students Enquiry List</h5>
         </div>
+        <div class="col text-center">
+            <!-- Search input field -->
+            <div class="form-group">
+                <input type="text" id="searchInput" class="form-control border border-dark shadow-none pr-5" style="width: 300px;" placeholder="Search By Counsolar Name, Candidate Name, Date Of Admission" aria-label="Search...">
+                <!-- Search icon -->
+                <!-- <i class="bx bx-search fs-4 lh-0 position-absolute top-50 end-0 translate-middle-y me-2"></i> -->
+            </div>
+        </div>
         <div class="col text-right">
         <div class="d-flex justify-content-end align-items-center">
     <a href="{{route('franchise.student-enquiry-form')}}" class="btn btn-primary" style="margin-right: 10px;" fdprocessedid="pnohgn">Add Enquiry</a>
@@ -25,7 +33,7 @@
     <!-- ------------------- -->
     <div class="card-body">
         <div class="table-responsive text-nowrap">
-            <table class="table table-bordered">
+            <table id="dataTable" class="table table-bordered">
 
                 <thead>
                     <tr>
@@ -58,6 +66,7 @@
                         <td>{{ $enquiryForm->contact_no }}</td>
                         <td>{{ $enquiryForm->interested_course }}</td>
                         <td>{{ $enquiryForm->suggested_course }}</td>
+                        <td>{{ $enquiryForm->date_of_birth }}</td>
                         <td><span class="badge bg-label-success me-1">Completed</span></td>
                         <td>
                             <div>
@@ -141,5 +150,33 @@
             checkbox.addEventListener('click', toggleExportButton);
         });
     });
+
+    // fro searching
+
+    function filterRows() {
+    var input, filter, table, tr, td, i, j, txtValue;
+    input = document.getElementById("searchInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("dataTable"); // Get table by id
+    tr = table.getElementsByTagName("tr");
+
+    for (i = 0; i < tr.length; i++) {
+        var found = false;
+        td = tr[i].getElementsByTagName("td");
+        for (j = 2; j < td.length - 1; j++) { // Start from index 2 to skip the checkbox and Sr.No columns, exclude the last column (Action)
+            txtValue = td[j].textContent || td[j].innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                found = true;
+                break;
+            }
+        }
+        if (found) {
+            tr[i].style.display = "";
+        } else {
+            tr[i].style.display = "none";
+        }
+    }
+}
+
 </script>
 @endsection

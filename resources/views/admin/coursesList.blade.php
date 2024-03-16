@@ -4,17 +4,21 @@
 @section('page', 'View Course')
 @section("adminform-content")
 
-
-
-
-
-
 <div class="card">
-                <!-- <h5 class="card-header">View Enquiry Students List</h5> -->
+                
                 <div class="row align-items-center">
         <div class="col">
             <h5 class="card-header">Courses List</h5>
         </div>
+        
+        <div class="col text-center">
+            <!-- Search input field -->
+            <div class="form-group">
+                <input type="text" id="searchInput" class="form-control border border-dark shadow-none pr-5" style="width: 300px;" placeholder="Search By Course Name, Fees" aria-label="Search...">
+    
+            </div>
+        </div>
+
         <div class="col text-right">
         <div class="d-flex justify-content-end align-items-center">
         <a  type="button" id="modalCenterTitle" class="btn btn-primary" style="margin-right: 10px;color:white;"
@@ -309,6 +313,29 @@
         $('#editCourseForm').attr('action', '/admin/courses/' + courseId);
       });
   });
+</script>
+
+  // for searching
+
+  <script>
+  $(document).ready(function() {
+    $('#searchInput').on('keyup', function() {
+      var searchText = $(this).val().toLowerCase();
+      $('tbody tr').each(function() {
+        var courseName = $(this).find('td:nth-child(2)').text().toLowerCase();
+        var duration = $(this).find('td:nth-child(3)').text().toLowerCase();
+        var fees = $(this).find('td:nth-child(4)').text().toLowerCase();
+
+        if (courseName.indexOf(searchText) === -1 && duration.indexOf(searchText) === -1 && fees.indexOf(searchText) === -1) {
+          $(this).hide();
+        } else {
+          $(this).show();
+        }
+      });
+    });
+  });
+
+
 </script>
 
 

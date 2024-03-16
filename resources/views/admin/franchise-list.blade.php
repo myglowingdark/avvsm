@@ -10,6 +10,14 @@
         <div class="col">
             <h5 class="card-header">Franchise List</h5>
         </div>
+        <div class="col text-center">
+            <!-- Search input field -->
+            <div class="form-group">
+                <input type="text" id="searchInput" class="form-control border border-dark shadow-none pr-5" style="width: 300px;" placeholder="Search By Franchise ID, Email, Owner Name" aria-label="Search...">
+              
+
+            </div>
+        </div>
         <div class="col text-right" style="margin-left: 800px;">
             <a href="{{ route('create-franchise')}}"  class="btn btn-primary" fdprocessedid="pnohgn" >Add Franchise</a>
         </div>

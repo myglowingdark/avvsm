@@ -11,6 +11,14 @@
         <div class="col">
             <h5 class="card-header">Student Enquiry List</h5>
         </div>
+        <div class="col text-center">
+            <!-- Search input field -->
+            <div class="form-group">
+                <input type="text" id="searchInput" class="form-control border border-dark shadow-none pr-5" style="width: 300px;" placeholder="Search By center,Counselor Name, Candidate Name" aria-label="Search...">
+                <!-- Search icon -->
+                <!-- <i class="bx bx-search fs-4 lh-0 position-absolute top-50 end-0 translate-middle-y me-2"></i> -->
+            </div>
+        </div>
         <div class="col text-right">
         <div class="d-flex justify-content-end align-items-center">
    
@@ -127,6 +135,42 @@
       exportButton.style.display = 'none';
     }
   }
+</script>
+
+ <script>
+
+  
+    function searchTable() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        table = document.querySelector(".table");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            tdCenter = tr[i].getElementsByTagName("td")[2]; // Index 2 for Center
+            tdCounselor = tr[i].getElementsByTagName("td")[3]; // Index 3 for Counselor Name
+            tdCandidate = tr[i].getElementsByTagName("td")[4]; // Index 4 for Candidate Name
+            if (tdCenter || tdCounselor || tdCandidate) {
+                txtValueCenter = tdCenter.textContent || tdCenter.innerText;
+                txtValueCounselor = tdCounselor.textContent || tdCounselor.innerText;
+                txtValueCandidate = tdCandidate.textContent || tdCandidate.innerText;
+                if (txtValueCenter.toUpperCase().indexOf(filter) > -1 ||
+                    txtValueCounselor.toUpperCase().indexOf(filter) > -1 ||
+                    txtValueCandidate.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+    // Bind searchTable function to keyup event on searchInput
+    document.getElementById("searchInput").addEventListener("keyup", searchTable);
+
+
 </script>
 
 

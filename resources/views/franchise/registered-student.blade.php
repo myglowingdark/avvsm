@@ -26,6 +26,14 @@
         <div class="col">
             <h5 class="card-header">Registered Student</h5>
         </div>
+        <div class="col text-center">
+            <!-- Search input field -->
+            <div class="form-group">
+                <input type="text" id="searchInput" class="form-control border border-dark shadow-none pr-5" style="width: 300px;" placeholder="Search By Registration No, Student Name, Date Of Admission" aria-label="Search...">
+                <!-- Search icon -->
+                <!-- <i class="bx bx-search fs-4 lh-0 position-absolute top-50 end-0 translate-middle-y me-2"></i> -->
+            </div>
+        </div>
         <div class="col text-right">
         <div class="d-flex justify-content-end align-items-center">
    
@@ -58,7 +66,7 @@
                         <th class="thclass">Course Name</th>
                         <th class="thclass">Course Duration</th>                      
                         <th class="thclass">amount </th>
-                        <th class="thclass">DOA </th>
+                        <th class="thclass">Date Of Admission </th>
                         <th class="thclass">State </th>
                         <th class="thclass">Certificate issue</th>
                         <th class="thclass">Print History</th>
@@ -203,18 +211,34 @@ document.addEventListener('DOMContentLoaded', function() {
         checkbox.addEventListener('click', toggleExportButton);
     });
 });
+
+
+// for searching
+
+    function filterTable() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        table = document.querySelector(".table");
+        tr = table.querySelectorAll("tbody tr");
+
+        tr.forEach(function(row) {
+            var studentId = row.cells[3].textContent.toUpperCase(); // Assuming student_id is in the 4th column
+            var studentName = row.cells[5].textContent.toUpperCase(); // Assuming student_name is in the 6th column
+            var dateOfAdmission = row.cells[11].textContent.toUpperCase(); // Assuming date_of_admission is in the 12th column
+
+            if (studentId.indexOf(filter) > -1 || studentName.indexOf(filter) > -1 || dateOfAdmission.indexOf(filter) > -1) {
+                row.style.display = "";
+            } else {
+                row.style.display = "none";
+            }
+        });
+    }
+
+    document.getElementById("searchInput").addEventListener("keyup", filterTable);
+
+
 </script>
-
-
-
-           
-
-
-    
-
-    
-
-
 @endsection
  
 

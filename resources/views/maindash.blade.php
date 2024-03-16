@@ -2,7 +2,6 @@
 
   @section("content")
   <!-- Menu -->
-
     <!-- aside -->
     @include("sidebar")
     <!-- / Menu -->

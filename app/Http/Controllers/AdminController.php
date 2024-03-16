@@ -12,6 +12,8 @@ use Carbon\Carbon;
 use Illuminate\Database\QueryException;
 use Exception;
 
+
+
 use Illuminate\Support\Facades\Session;
 
 class AdminController extends Controller
@@ -316,7 +318,7 @@ class AdminController extends Controller
             return redirect()->route('add-new-student')->with('error', 'Failed to create student');
         }
         // dd($student);
-        // If you reached here, the student was created successfully
+       
         
         return redirect()->route('view-student')->with('success', 'Enquiry form submitted successfully!');
     } catch (\Exception $e) {
@@ -326,6 +328,100 @@ class AdminController extends Controller
         return redirect()->route('add-new-student')->with('error', 'An unexpected error occurred. Please try again.');
     }
     }
-   
+       
+    public function showUpdateSignature()
+    {
+        // Find the franchise by its ID
+        $franchises = Franchise::all();
+        $username = auth()->user()->username;
+        
+        // dd($username);
+
+        // Pass the franchise data to the view
+        return view('franchise.update-signature', compact('franchises', 'username'));
+    }
+
+    public function updateSignature(Request $request)
+    {
+        
+        try {
+
+            $id = auth()->user()->id;
+
+// Find the franchise record by its ID
+                  $franchise = Franchise::find($id);
+                         $user = $franchise->username;
+
+    // Validate the request
+    $validatedData = $request->validate([
+        'signature' => 'required|mimes:jpeg,png,jpg|max:2048',
+        'passport_photo' => 'required|mimes:jpeg,png,jpg|max:2048',
+    ]);
+
+
+
+                // Retrieve the files from the request
+    $signatureFile = $request->file('signature');
+    $passportPhotoFile = $request->file('passport_photo');
+
+    // Store the files
+    $signaturePath = $signatureFile->store('signatures');
+    $passportPhotoPath = $passportPhotoFile->store('passport_photos');
+
+    // Update the Franchise model
+    $franchise->update([
+        'signature' => $signaturePath,
+        'passport_photo' => $passportPhotoPath,
+    ]);
+
+    // Retrieve the files from the request
+    // $signatureFile = $request->file('signature');
+    // $passportPhotoFile = $request->file('passport_photo');
+            // dd($request);
+            // $files = $request->files;
+            // Get the authenticated user
+            // $user = auth()->user()->username;
+            
+            // Get the franchise ID of the user
+            // $franchiseId = Franchise::where('franchise_id', $user)->value('franchise_id');
+            // dd($user);
+            // if($franchiseId===$user){
+                // Validate the request
+               
+                // $signatureFile = $request->file('signature');
+                
+                // $passportPhotoFile = $request->file('passport_photo');
+                // dd( $signatureFile, $passportPhotoFile);
+                // dd($signatureFile,  $passportPhotoFile );
+                // $validatedData = $files->validate([
+                //     'signature' => 'mimes:jpeg,png,jpg|max:2048',
+                //     'passport_photo' => 'mimes:jpeg,png,jpg|max:2048',
+                // ]);
+                // dd($validatedData);
+               
+                 
+                // Update the Franchise model
+                // Franchise::where('franchise_id', $user)->update([
+                //     'signature' => $request->file('signature')->store('signature'),
+                //     'passport_photo' => $request->file('passport_photo')->store('passport_photo'),
+                // ]);
+
+            // }
+    
+            // Redirect back with success message
+            return redirect()->route('dashboard')->with('success', 'Passport photo and signature updated successfully!');
+        } catch (\Exception $e) {
+            // Log any unexpected exceptions
+            Log::error('Exception occurred: ' . $e->getMessage());
+            return redirect()->route('update-signature')->with('error', 'An unexpected error occurred. Please try again.');
+        }
+    }
+    
+    
+
     
 }
+
+
+
+

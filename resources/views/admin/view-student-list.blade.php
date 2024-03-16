@@ -10,6 +10,14 @@
         <div class="col">
             <h5 class="card-header">Student List</h5>
         </div>
+        <div class="col text-center">
+            <!-- Search input field -->
+            <div class="form-group">
+                <input type="text" id="searchInput" class="form-control border border-dark shadow-none pr-5" style="width: 300px;" placeholder="Search By Reg No,Center,Student name, Email, Date  " aria-label="Search..." onkeyup="searchStudents()">
+                <!-- Search icon -->
+                <!-- <i class="bx bx-search fs-4 lh-0 position-absolute top-50 end-0 translate-middle-y me-2"></i> -->
+            </div>
+        </div>
         <div class="col text-right">
         <div class="d-flex justify-content-end align-items-center">
     <a href="{{ route('add-new-student')}}" class="btn btn-primary" style="margin-right: 10px;" fdprocessedid="pnohgn">Add Student</a>
@@ -147,6 +155,31 @@
      exportButton.style.display = 'none';
    }
  }
+
+//  this for search
+ function searchStudents() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("searchInput");
+  filter = input.value.toUpperCase();
+  table = document.querySelector(".table");
+  tr = table.getElementsByTagName("tr");
+
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td");
+    for (var j = 1; j < td.length - 1; j++) { // excluding action column
+      if (td[j]) {
+        txtValue = td[j].textContent || td[j].innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+          break; // Break the loop if any of the columns match the search query
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+    }
+  }
+}
+
 </script>
 
 

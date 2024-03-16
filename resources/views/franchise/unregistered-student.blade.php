@@ -18,6 +18,14 @@
         <div class="col">
             <h5 class="card-header">Un-Registered Student</h5>
         </div>
+        <div class="col text-center">
+            <!-- Search input field -->
+            <div class="form-group">
+                <input type="text" id="searchInput" class="form-control border border-dark shadow-none pr-5" style="width: 300px;" placeholder="Search By Registration No, Student Name, Date Of Admission" aria-label="Search...">
+                <!-- Search icon -->
+                <!-- <i class="bx bx-search fs-4 lh-0 position-absolute top-50 end-0 translate-middle-y me-2"></i> -->
+            </div>
+        </div>
         <div class="col text-right">
         <div class="d-flex justify-content-end align-items-center">
     <button type="button" id="availablebalance" class="btn btn-primary" style="margin-right: 10px;" fdprocessedid="pnohgn" onclick="exportToExcel()" style="display: none;">Available Balance</button>
@@ -139,8 +147,29 @@
       regStudentButton.style.display = 'none';
     }
   }
+
+  // for searching
+    document.addEventListener('DOMContentLoaded', function () {
+        var searchInput = document.getElementById('searchInput');
+        var rows = document.querySelectorAll('tbody tr');
+
+        searchInput.addEventListener('input', function () {
+            var searchText = searchInput.value.trim().toLowerCase();
+
+            rows.forEach(function (row) {
+                var registrationNo = row.cells[3].textContent.trim().toLowerCase();
+                var dateOfAdmission = row.cells[4].textContent.trim().toLowerCase();
+                var studentName = row.cells[6].textContent.trim().toLowerCase();
+
+                if (registrationNo.includes(searchText) ||
+                    dateOfAdmission.includes(searchText) ||
+                    studentName.includes(searchText)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    });
 </script>
-
-
-
 @endsection

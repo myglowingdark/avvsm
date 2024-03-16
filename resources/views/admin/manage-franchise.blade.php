@@ -10,6 +10,14 @@
         <div class="col">
             <h5 class="card-header">Franchise List</h5>
         </div>
+        <div class="col text-center">
+            <!-- Search input field -->
+            <div class="form-group">
+                <input type="text" id="searchInput" class="form-control border border-dark shadow-none pr-5" style="width: 300px;" placeholder="Search By Franchise Id, Email, Owner Name" aria-label="Search...">
+                <!-- Search icon -->
+                <!-- <i class="bx bx-search fs-4 lh-0 position-absolute top-50 end-0 translate-middle-y me-2"></i> -->
+            </div>
+        </div>
         <div class="col text-right">
         <div class="d-flex justify-content-end align-items-center">
     <a href="{{ route('create-franchise')}}" class="btn btn-primary" style="margin-right: 10px;" fdprocessedid="pnohgn">Add Franchise</a>
@@ -178,5 +186,33 @@ document.addEventListener('DOMContentLoaded', function() {
                                 });
                             });
                         });
-                    </script>
+      //  this is for searching script               
+      
+      document.addEventListener('DOMContentLoaded', function() {
+  // Find the search input field
+  var searchInput = document.getElementById('searchInput');
+
+  // Add event listener for input event on search input field
+  searchInput.addEventListener('input', function(event) {
+    var searchQuery = event.target.value.toLowerCase(); // Get the lowercase search query
+    var tableRows = document.querySelectorAll('tbody tr'); // Get all table rows
+
+    // Iterate through each table row
+    tableRows.forEach(function(row) {
+      // Get the data in each column of the current row
+      var franchiseId = row.cells[1].innerText.toLowerCase(); // Franchise Id
+      var email = row.cells[2].innerText.toLowerCase(); // Email
+      var ownerName = row.cells[3].innerText.toLowerCase(); // Owner Name
+
+      // Check if any of the columns match the search query
+      if (franchiseId.includes(searchQuery) || email.includes(searchQuery) || ownerName.includes(searchQuery)) {
+        row.style.display = ''; // Show the row if it matches the search query
+      } else {
+        row.style.display = 'none'; // Hide the row if it doesn't match the search query
+      }
+    });
+  });
+});
+
+  </script>
 @endsection

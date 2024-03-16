@@ -166,6 +166,11 @@ Route::post('admin/courses/create', [CourseController::class, 'createCourse'])->
 Route::post('admin/courses/{id}/edit', [CourseController::class, 'edit'])->name('courses.edit');
 // routes/web.php
 
+
+// for update signature
+Route::get('franchise/update-signature', [AdminController::class, 'showUpdateSignature'])->name('update-signature');
+Route::post('franchise/update-signature', [AdminController::class, 'updateSignature'])->name('update-profile');
+
 // Route::put('/admin/courses/{id}', 'CourseController@update')->name('courses.update');
 
 Route::post('admin/courses/{id}', [CourseController::class, 'update'])->name('courses.update'); 
