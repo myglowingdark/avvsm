@@ -18,7 +18,12 @@
                             </span>
                         </a>
                     </div>
-                    @if ($errors->any())
+                   
+                    <!-- /Logo -->
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-md-12"> <!-- Increase column width for large screens -->
+                            @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul>
                                 @foreach ($errors->all() as $error)
@@ -26,12 +31,8 @@
                                 @endforeach
                             </ul>
                         </div>
-                    @endif
-                    <!-- /Logo -->
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-md-12"> <!-- Increase column width for large screens -->
-                                @foreach($franchises as $franchise)
+                    @endif    
+                            @foreach($franchises as $franchise)
                                    
                                     @if($franchise->franchise_id == auth()->user()->username)
                                         <form method="POST" action="{{ route('update-profile') }}" enctype="multipart/form-data">    
@@ -46,7 +47,7 @@
                                             <div class="form-group row">
                                                 <label for="new_signature" class="col-md-4 col-form-label text-md-right">Choose New</label>
                                                 <div class="col-md-8"> 
-                                                    <input id="signature" type="file" class="form-control" name="signature" onchange="readURL(this, 'current_signature');" required>
+                                                    <input id="signature" type="file" class="form-control" name="signature" value= "{{asset($franchise->signature)}}"onchange="readURL(this, 'current_signature');">
                                                 </div>
                                             </div> 
                                             <br>
@@ -59,7 +60,7 @@
                                             <div class="form-group row">
                                                 <label for="new_passport_photo" class="col-md-4 col-form-label text-md-right">Choose New</label>
                                                 <div class="col-md-8"> <!-- Adjust column width to take full width -->
-                                                    <input id="new_passport_photo" type="file" class="form-control" name="passport_photo" onchange="readURL(this, 'current_photo');" required>
+                                                    <input id="new_passport_photo" type="file" class="form-control" name="passport_photo" value= "{{asset($franchise->passport_photo)}}" onchange="readURL(this, 'current_photo');" >
                                                 </div>
                                             </div><br>
                                             <div class="form-group row mb-0">

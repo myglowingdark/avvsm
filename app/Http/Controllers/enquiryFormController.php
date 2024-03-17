@@ -11,11 +11,9 @@ class enquiryFormController extends Controller
 {
     public function showEnquiryForm()
     {
-
-        
         return view('franchise.student-enquiry-form');
-        }
-
+    }
+        
     public function showEnquiryList()
     {
         // Fetch all enquiry forms from the database

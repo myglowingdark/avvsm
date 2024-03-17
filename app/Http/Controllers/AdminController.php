@@ -342,83 +342,50 @@ class AdminController extends Controller
     }
 
     public function updateSignature(Request $request)
-    {
-        
-        try {
+{
+    try {
+        $id = auth()->user()->id;
 
-            $id = auth()->user()->id;
+        // Find the franchise record by its ID
+        $franchise = Franchise::where('user_id', $id)->firstOrFail();
 
-// Find the franchise record by its ID
-                  $franchise = Franchise::find($id);
-                         $user = $franchise->username;
+        // Define image paths
+        $photoImagePath = 'images/franchise/photo/';
+        $signImagePath = 'images/franchise/signature/';
 
-    // Validate the request
-    $validatedData = $request->validate([
-        'signature' => 'required|mimes:jpeg,png,jpg|max:2048',
-        'passport_photo' => 'required|mimes:jpeg,png,jpg|max:2048',
-    ]);
+        // Validate the request
+        $validatedData = $request->validate([
+            'signature' => 'sometimes|required|image|mimes:jpeg,png,jpg|max:2048',
+            'passport_photo' => 'sometimes|required|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
 
-
-
-                // Retrieve the files from the request
-    $signatureFile = $request->file('signature');
-    $passportPhotoFile = $request->file('passport_photo');
-
-    // Store the files
-    $signaturePath = $signatureFile->store('signatures');
-    $passportPhotoPath = $passportPhotoFile->store('passport_photos');
-
-    // Update the Franchise model
-    $franchise->update([
-        'signature' => $signaturePath,
-        'passport_photo' => $passportPhotoPath,
-    ]);
-
-    // Retrieve the files from the request
-    // $signatureFile = $request->file('signature');
-    // $passportPhotoFile = $request->file('passport_photo');
-            // dd($request);
-            // $files = $request->files;
-            // Get the authenticated user
-            // $user = auth()->user()->username;
-            
-            // Get the franchise ID of the user
-            // $franchiseId = Franchise::where('franchise_id', $user)->value('franchise_id');
-            // dd($user);
-            // if($franchiseId===$user){
-                // Validate the request
-               
-                // $signatureFile = $request->file('signature');
-                
-                // $passportPhotoFile = $request->file('passport_photo');
-                // dd( $signatureFile, $passportPhotoFile);
-                // dd($signatureFile,  $passportPhotoFile );
-                // $validatedData = $files->validate([
-                //     'signature' => 'mimes:jpeg,png,jpg|max:2048',
-                //     'passport_photo' => 'mimes:jpeg,png,jpg|max:2048',
-                // ]);
-                // dd($validatedData);
-               
-                 
-                // Update the Franchise model
-                // Franchise::where('franchise_id', $user)->update([
-                //     'signature' => $request->file('signature')->store('signature'),
-                //     'passport_photo' => $request->file('passport_photo')->store('passport_photo'),
-                // ]);
-
-            // }
-    
-            // Redirect back with success message
-            return redirect()->route('dashboard')->with('success', 'Passport photo and signature updated successfully!');
-        } catch (\Exception $e) {
-            // Log any unexpected exceptions
-            Log::error('Exception occurred: ' . $e->getMessage());
-            return redirect()->route('update-signature')->with('error', 'An unexpected error occurred. Please try again.');
+        if ($request->hasFile('signature')) {
+            $timestamp = time();
+            $signatureName = $franchise->id . '_' . $timestamp . '.' . strtolower($request->signature->getClientOriginalExtension());
+            $request->signature->move(public_path($signImagePath), $signatureName);
+            $franchise->update([
+                'signature' => $signImagePath . $signatureName,
+            ]);
         }
+        if ($request->hasFile('passport_photo')) {
+            
+            $timestamp = time();
+            $photoName = $franchise->id . '_' . $timestamp . '.' . strtolower($request->passport_photo->getClientOriginalExtension());
+            $request->passport_photo->move(public_path($photoImagePath), $photoName);
+            $franchise->update([
+                'passport_photo' => $photoImagePath . $photoName,
+            ]);
+        }      
+        
+    } catch (\Exception $e) {
+        // Log any unexpected exceptions
+        Log::error('Exception occurred: ' . $e->getMessage());
+        return back()->with('error',  $e->getMessage())->withInput();
+        // return redirect()->route('update-signature')->with('error', 'An unexpected error occurred. Please try again.');
     }
-    
-    
+    return redirect()->route('dashboard')->with('success', 'Passport photo and/or signature updated successfully!');
 
+    }
     
 }
 
